@@ -1,0 +1,47 @@
+import { CommonService } from './common.service';
+export declare class CommonController {
+    private readonly commonService;
+    constructor(commonService: CommonService);
+    getMenuNavDetails(): Promise<{
+        data: any;
+    }>;
+    menuDetails(data: any): Promise<any>;
+    menuDocWiseNevigation(data: any): Promise<any>;
+    MSTDocWiseNevigation(data: any): Promise<any>;
+    getHelpList(data: any): Promise<any>;
+    getUserAccess(data: any): Promise<any>;
+    GET_VOUTYPE_FROM_MENUDOC(data: any): Promise<any>;
+    getSpData(data: any): Promise<any>;
+    getSp(data: any): Promise<any>;
+    getUserSpData(data: any): Promise<any>;
+    Sel_MasterCodeList(data: any): Promise<any>;
+    Get_TableFieldswithClause(data: any): Promise<any>;
+    insert_MstMaterials(data: any): Promise<void>;
+    insert_MstCommunit(data: any): Promise<void>;
+    DeleteQury(data: any): Promise<any>;
+    MASTDeleteQury(data: any): Promise<any>;
+    insert_MstMatGroup(data: any): Promise<void>;
+    insert_CNFMATERIALS(data: any): Promise<void>;
+    insert_MstMatLocation(data: any): Promise<void>;
+    insert_CnfRateExcise(data: any): Promise<void>;
+    insert_GstRateCategory(data: any): Promise<void>;
+    insert_MSTACCTGL(data: any): Promise<void>;
+    Ins_ItarMaster(data: any): Promise<void>;
+    insert_MstMSTCOMMGODOWN(data: any): Promise<void>;
+    insert_glsubgl(data: any): Promise<void>;
+    chckDuplicateChllnNO(data: any): Promise<any>;
+    getPostKeyData(): Promise<any>;
+    getGstCategoryData(): Promise<any>;
+    getConstantAccount(data: any): Promise<any>;
+    Sel_GetMaterialsGSTList(data: any): Promise<any>;
+    getPostKeyDataIdWise(data: any): Promise<any>;
+    Sel_TransactionsFinance(data: any): Promise<any>;
+    Sel_ControlAcctGl(data: any): Promise<any>;
+    Ins_LedgerControlAcc(data: any): Promise<void>;
+    Sel_ReportHelp(data: any): Promise<any>;
+    Sel_ReportLinking(data: any): Promise<any>;
+    insert_CNFREPORTD(data: any): Promise<void>;
+    insert_MSTACCTALLOCATION(data: any): Promise<void>;
+    insert_MstCommTerms(data: any): Promise<void>;
+    insert_CNFPOSTKEYSGL(data: any): Promise<void>;
+}

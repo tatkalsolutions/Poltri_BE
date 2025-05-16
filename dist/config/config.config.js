@@ -1,0 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.__REPORT_OUTPUT_PATH = exports.__REPORT_BASE_PATH = exports.__MYSQL_DATABASE_USER = exports.__MYSQL_DATABASE_MAIN = exports.__MYSQL_DB_PASSWORD = exports.__MYSQL_DB_USER = exports.__MYSQL_DB_PORT = exports.__MYSQL_DB_SERVER = exports.__MSSQL_DATABASE_USER = exports.__MSSQL_DATABASE_MAIN = exports.__MSSQL_DB_PASSWORD = exports.__MSSQL_DB_USER = exports.__MSSQL_DB_PORT = exports.__MSSQL_DB_SERVER = exports.DATABASE_BACKUP_PATH = exports.__DATABASE_TYPE = exports.__CLOUD_PATH = exports.__FROM_MAIL_PASSWORD = exports.__FROM_MAIL = exports.__BE_OPEN_TO = exports.__BE_PORT = void 0;
+exports.__BE_PORT = 2014;
+exports.__BE_OPEN_TO = '0.0.0.0';
+exports.__FROM_MAIL = "yourmail@demo.com";
+exports.__FROM_MAIL_PASSWORD = "XXX XXX XXX XXX";
+exports.__CLOUD_PATH = "../../cloud";
+exports.__DATABASE_TYPE = "MSSQL";
+exports.DATABASE_BACKUP_PATH = `E:\\Projects\\poultry_farm_house\\DB_Backup`;
+exports.__MSSQL_DB_SERVER = 'SAWANT-INFOTECH';
+exports.__MSSQL_DB_PORT = 1433;
+exports.__MSSQL_DB_USER = "shubham";
+exports.__MSSQL_DB_PASSWORD = "123456789";
+exports.__MSSQL_DATABASE_MAIN = 'POULTRYFARM';
+exports.__MSSQL_DATABASE_USER = 'POULTRYFARMUSERS';
+exports.__MYSQL_DB_SERVER = '';
+exports.__MYSQL_DB_PORT = 3306;
+exports.__MYSQL_DB_USER = "root";
+exports.__MYSQL_DB_PASSWORD = '';
+exports.__MYSQL_DATABASE_MAIN = '';
+exports.__MYSQL_DATABASE_USER = '';
+exports.__REPORT_BASE_PATH = '../assets/report/';
+exports.__REPORT_OUTPUT_PATH = '/output/';
+//# sourceMappingURL=config.config.js.map
