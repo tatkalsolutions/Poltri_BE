@@ -29,6 +29,7 @@ const pashukhayavibhagcommon_module_1 = require("./pashukhayavibhagcommon/pashuk
 const pashukhadyautpadan_module_1 = require("./pashukhadyautpadan/pashukhadyautpadan.module");
 const sales_module_1 = require("./sales/sales.module");
 const report_module_1 = require("./report/report.module");
+const purchase_module_1 = require("./purchase/purchase.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -49,7 +50,8 @@ exports.AppModule = AppModule = __decorate([
             pashukhayavibhagcommon_module_1.PashukhayavibhagcommonModule,
             pashukhadyautpadan_module_1.PashukhadyautpadanModule,
             sales_module_1.SalesModule,
-            report_module_1.ReportModule
+            report_module_1.ReportModule,
+            purchase_module_1.PurchaseModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [

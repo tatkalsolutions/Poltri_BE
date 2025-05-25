@@ -20,6 +20,7 @@ import { PashukhayavibhagcommonModule } from './pashukhayavibhagcommon/pashukhay
 import { PashukhadyautpadanModule } from './pashukhadyautpadan/pashukhadyautpadan.module';
 import { SalesModule } from './sales/sales.module';
 import { ReportModule } from './report/report.module';
+import { PurchaseModule } from './purchase/purchase.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { ReportModule } from './report/report.module';
     PashukhayavibhagcommonModule,
     PashukhadyautpadanModule,
     SalesModule,
-    ReportModule
+    ReportModule,
+    PurchaseModule
   ],
   controllers: [AppController],
   providers: [
