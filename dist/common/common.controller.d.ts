@@ -1,7 +1,9 @@
 import { CommonService } from './common.service';
+import { SQL } from 'src/database/sql.sql';
 export declare class CommonController {
     private readonly commonService;
-    constructor(commonService: CommonService);
+    private readonly config;
+    constructor(commonService: CommonService, config: SQL);
     getMenuNavDetails(): Promise<{
         data: any;
     }>;
@@ -44,4 +46,5 @@ export declare class CommonController {
     insert_MSTACCTALLOCATION(data: any): Promise<void>;
     insert_MstCommTerms(data: any): Promise<void>;
     insert_CNFPOSTKEYSGL(data: any): Promise<void>;
+    getLedgerPosting(data: any): Promise<any>;
 }

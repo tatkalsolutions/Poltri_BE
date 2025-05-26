@@ -8,11 +8,13 @@ import {
 } from '@nestjs/common';
 import { join } from 'path';
 import { Response } from 'express';
+import { SQL } from 'src/database/sql.sql';
 
 @Controller('common')
 export class CommonController {
   constructor(
-    private readonly commonService: CommonService
+    private readonly commonService: CommonService,
+    private readonly config: SQL,
   ) { }
 
   @Get('/MenusNav')
@@ -200,6 +202,11 @@ export class CommonController {
   @Post('/CNFPOSTKEYSGL')
   async insert_CNFPOSTKEYSGL(@Body() data) {
     return this.commonService.insert_CNFPOSTKEYSGL(data);
+  }
+  //-------------------* Ledger Posting Details ---------------------------//
+  @Post('/ledgerPosting')
+  async getLedgerPosting(@Body() data) {
+    return await this.config.executeQueryForMultTable(`exec Sel_AcctPostingDetail ${data.TranNO}`);
   }
 }
 

@@ -15,9 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommonController = void 0;
 const common_service_1 = require("./common.service");
 const common_1 = require("@nestjs/common");
+const sql_sql_1 = require("../database/sql.sql");
 let CommonController = class CommonController {
-    constructor(commonService) {
+    constructor(commonService, config) {
         this.commonService = commonService;
+        this.config = config;
     }
     getMenuNavDetails() {
         return this.commonService.menuNavDetails();
@@ -138,6 +140,9 @@ let CommonController = class CommonController {
     }
     async insert_CNFPOSTKEYSGL(data) {
         return this.commonService.insert_CNFPOSTKEYSGL(data);
+    }
+    async getLedgerPosting(data) {
+        return await this.config.executeQueryForMultTable(`exec Sel_AcctPostingDetail ${data.TranNO}`);
     }
 };
 exports.CommonController = CommonController;
@@ -418,8 +423,16 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CommonController.prototype, "insert_CNFPOSTKEYSGL", null);
+__decorate([
+    (0, common_1.Post)('/ledgerPosting'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommonController.prototype, "getLedgerPosting", null);
 exports.CommonController = CommonController = __decorate([
     (0, common_1.Controller)('common'),
-    __metadata("design:paramtypes", [common_service_1.CommonService])
+    __metadata("design:paramtypes", [common_service_1.CommonService,
+        sql_sql_1.SQL])
 ], CommonController);
 //# sourceMappingURL=common.controller.js.map
