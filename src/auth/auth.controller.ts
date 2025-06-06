@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { SQL } from 'src/database/sql.sql';
 import { CommonService } from 'src/common/common.service';
 import * as moment from 'moment';
+import { jwtConstants } from './constants';
 
 @Controller('auth')
 export class AuthController {
@@ -48,6 +49,7 @@ export class AuthController {
     }
     const payload = { sub: user[0].userId, username: user[0].username };
     delete user[0].NEW_PASSWORD
+    delete user[0].PASSWORD
 
     //-*--------------- Check Assigned Modules
     let userRole: any = await this.sql.executeUserQuery(`SELECT Roles.NAME FROM ROLES INNER JOIN UserRoles ON Roles.CODE = UserRoles.ROLE_CODE WHERE UserRoles.USER_ID = '${user[0].USER_ID}'`)
@@ -61,7 +63,7 @@ export class AuthController {
 
     return {
       MODULES: MENUS.length,
-      access_token: await this.jwtService.sign(payload, { secret: 'BDS', expiresIn: '1h' }),
+      access_token: await this.jwtService.sign(payload, { secret: jwtConstants.secret, expiresIn: jwtConstants.expiresIn }),
       userInfo: user[0],
       STATUS_CODE: '0'
     };

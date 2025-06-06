@@ -9,7 +9,7 @@ import { CommonService } from 'src/common/common.service';
   imports: [JwtModule.register({
     global: true,
     secret: jwtConstants.secret,
-    signOptions: { expiresIn: '2d' },
+    signOptions: { expiresIn: jwtConstants.expiresIn },
   }),],
   controllers: [AuthController],
   providers: [
