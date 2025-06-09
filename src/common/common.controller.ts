@@ -208,5 +208,28 @@ export class CommonController {
   async getLedgerPosting(@Body() data) {
     return await this.config.executeQueryForMultTable(`exec Sel_AcctPostingDetail ${data.TranNO}`);
   }
+
+
+  @Get('/GetMSTCOMPUNITSData')
+  async GetMSTCOMPUNITSData() {
+    return this.commonService.GetMSTCOMPUNITSData();
+  }
+  @Get('/EmployeeList')
+  async get_EmployeeList() {
+    return await this.commonService.getEmployeeList();
+  }
+  //Get TDS category
+  @Post('/getTDSCategory')
+  async getTDSCategory(@Body() data) {
+    return await this.commonService.getTDSCategory(data);
+  }
+  @Post('/BillDateSP')
+  async billDateSP(@Body() data) {
+    return this.commonService.billDateSP(data);
+  }
+  @Post('/GetData')
+  async GetData(@Body() data) {
+    return this.commonService.GetData(data);
+  }
 }
 

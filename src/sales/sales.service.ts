@@ -17,7 +17,7 @@ export class SalesService {
     let TranNo;
     if (dsHeader['TRAN_NO'] != 0) {
       TranNo = dsHeader['TRAN_NO'];
-      await this.config.executeQuery(`delete from TRNACCTMATH where TRAN_NO = ${TranNo}`);
+      queryArray.push(`delete from TRNACCTMATH where TRAN_NO = ${TranNo}`);
     } else {
       let autoIncremented = await this.config.executeQuery(`Get_Next_Trans_No '101',${dsHeader.TRAN_TYPE},${dsHeader.TRAN_SUBTYPE},${dsHeader.TRAN_SERIES},'${dsHeader.TRAN_DATE}','TRNACCTMATH'`);
       TranNo = autoIncremented[0][''];
@@ -104,7 +104,7 @@ export class SalesService {
     }
 
     //-------- Account Posting
-    await this.config.executeQuery(`delete from TRNACCTPOST where TRAN_NO = ${TranNo}`);
+    queryArray.push(`delete from TRNACCTPOST where TRAN_NO = ${TranNo}`);
 
     let SRNO = 1;
     for (let item of dsAccount) {
@@ -126,7 +126,7 @@ export class SalesService {
     }
 
     //-------- Material Posting
-    await this.config.executeQuery(`delete from TRNACCTMATISALE where TRAN_NO = ${TranNo}`);
+    queryArray.push(`delete from TRNACCTMATISALE where TRAN_NO = ${TranNo}`);
 
     let srno = 1;
     for (let item of dsMaterial) {
@@ -181,7 +181,7 @@ export class SalesService {
           item['SUB_GLACNO1'] = dsHeader.SUB_GLACNO;
         }
         item['QTY'] = '-' + item.QTY;
-        item['GODOWN_CODE'] = dsHeader.GODOWN_CODE;
+        // item['GODOWN_CODE'] = dsHeader.GODOWN_CODE; ---- its comes from FE - its shade 
         item['MAT_RATE'] = item.RATE;
         item['MAT_VALUE'] = item.AMOUNT;
         item['TRAN_SUBTYPE'] = dsHeader.TRAN_SUBTYPE;
@@ -223,7 +223,7 @@ export class SalesService {
 
       if (GSTR1MatrixDataSet.length != 0) {
         let GSTSRNO = 1;
-        await this.config.executeQuery(`delete from TRNACCTMATIGSTR1 where TRAN_NO = ${TranNo}`);
+        queryArray.push(`delete from TRNACCTMATIGSTR1 where TRAN_NO = ${TranNo}`);
 
         for (let item of GSTR1MatrixDataSet) {
           if (item.NAME != '') {

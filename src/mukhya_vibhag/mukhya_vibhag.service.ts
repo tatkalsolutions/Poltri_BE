@@ -73,10 +73,10 @@ export class MukhyaVibhagService {
     }
     let SR_NO = 0
     if (data.TRNACCTMATH.TRAN_NO != undefined) {
-      await this.sql.executeQuery(`delete from ${Htable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
-      await this.sql.executeQuery(`delete from ${MSTMATVALRATETable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
-      await this.sql.executeQuery(`delete from ${TRNBIPRODMATPOSTtable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
-      await this.sql.executeQuery(`delete from ${Itable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${Htable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${MSTMATVALRATETable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${TRNBIPRODMATPOSTtable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${Itable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
       let sysDate = await this.sql.executeQuery(`Get_SYSDATETIME`);
 
 

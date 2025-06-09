@@ -589,9 +589,9 @@ export class TransactionListService {
           item['REF_TRANNO'] = data.TRNACCTMATH.TRAN_NO;
           item['SYSADD_DATETIME'] = sysDate[0][''];
           item['SYSCHNG_DATETIME'] = sysDate[0][''];
-          if (data.TRNACCTMATH.COMPANY_ID == 103 || data.TRNACCTMATH.COMPANY_ID == 106 || data.TRNACCTMATH.COMPANY_ID == 101) {
-            item['GODOWN_CODE'] = 0;
-          }
+          // if (data.TRNACCTMATH.COMPANY_ID == 103 || data.TRNACCTMATH.COMPANY_ID == 106 || data.TRNACCTMATH.COMPANY_ID == 101) {
+          //   item['GODOWN_CODE'] = 0;
+          // }
           item['tableName'] = GRNtable;
 
           let result = await this.config.insertData(item)
@@ -663,9 +663,9 @@ export class TransactionListService {
           item['REF_TRANNO'] = data.TRNACCTMATH.TRAN_NO
           item['SYSADD_DATETIME'] = sysDate[0][''];
           item['SYSCHNG_DATETIME'] = sysDate[0][''];
-          if (data.TRNACCTMATH.COMPANY_ID == 103 || data.TRNACCTMATH.COMPANY_ID == 106 || data.TRNACCTMATH.COMPANY_ID == 101) {
-            item['GODOWN_CODE'] = 0;
-          }
+          // if (data.TRNACCTMATH.COMPANY_ID == 103 || data.TRNACCTMATH.COMPANY_ID == 106 || data.TRNACCTMATH.COMPANY_ID == 101) {
+          //   item['GODOWN_CODE'] = 0;
+          // }
           item['tableName'] = Ptable;
 
           let result = await this.config.insertData(item)
@@ -698,9 +698,9 @@ export class TransactionListService {
           item['REF_TRANNO'] = autoIncremented[0][''];
           item['SYSADD_DATETIME'] = sysDate[0][''];
           item['SYSCHNG_DATETIME'] = sysDate[0][''];
-          if (data.TRNACCTMATH.COMPANY_ID == 103 || data.TRNACCTMATH.COMPANY_ID == 106 || data.TRNACCTMATH.COMPANY_ID == 101) {
-            item['GODOWN_CODE'] = 0;
-          }
+          // if (data.TRNACCTMATH.COMPANY_ID == 103 || data.TRNACCTMATH.COMPANY_ID == 106 || data.TRNACCTMATH.COMPANY_ID == 101) {
+          //   item['GODOWN_CODE'] = 0;
+          // }
           item['tableName'] = GRNtable;
 
           let result = await this.config.insertData(item)
@@ -768,9 +768,9 @@ export class TransactionListService {
           item['REF_TRANNO'] = autoIncremented[0][''];
           item['SYSADD_DATETIME'] = sysDate[0][''];
           item['SYSCHNG_DATETIME'] = sysDate[0][''];
-          if (data.TRNACCTMATH.COMPANY_ID == 103 || data.TRNACCTMATH.COMPANY_ID == 106 || data.TRNACCTMATH.COMPANY_ID == 101) {
-            item['GODOWN_CODE'] = 0;
-          }
+          // if (data.TRNACCTMATH.COMPANY_ID == 103 || data.TRNACCTMATH.COMPANY_ID == 106 || data.TRNACCTMATH.COMPANY_ID == 101) {
+          //   item['GODOWN_CODE'] = 0;
+          // }
           item['tableName'] = Ptable;
 
           let result = await this.config.insertData(item)

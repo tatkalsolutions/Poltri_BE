@@ -916,6 +916,26 @@ export class CommonService {
             return this.config.executeInsertQuery([await this.config.updateData(dataset)]);
         }
     }
+    //------------* Get Company Unit Details
+    async GetMSTCOMPUNITSData() {
+        return await this.config.executeQuery(`select * from MSTCOMPUNITS where STATUS_CODE = 0`);
+    }
+    async getEmployeeList() {
+        return await this.config.executeQuery(`select * from MSTCOMMEMPLOYEE where STATUS_CODE = 0 order by NAME ASC`);
+    }
+    async getTDSCategory(data) {
+        return await this.config.executeQuery(`select  CONVERT(VARCHAR(10),CODE) + '|' + CONVERT(VARCHAR(15),GL_ACNO) + '|' + CONVERT(VARCHAR(15),ISNULL(SUB_GLACNO,0)) + '|' + CONVERT(VARCHAR(10),RATE) + '|' + CONVERT(VARCHAR(10),IT_RATE) + '|' + CONVERT(VARCHAR(10),SCHARGE_RATE) + '|' + CONVERT(VARCHAR(10),CESS_RATE) + '|' + CONVERT(VARCHAR(10),HSCCESS_RATE) AS CODE, NAME, CONVERT(VARCHAR,CODE) AS TDS_CODE, APPLICABLE_FOR AS TDS_TYPE from CNFRATETDS where STATUS_CODE = 0`)
+    }
+    //-----* Get Date Dropdown List
+    async billDateSP(data) {
+        var data = await this.config.executeQuery(`exec Get_Posting_Dates @COMPANY_ID=N'101',@display_code=${data.dateCode},@days=${data.type}`);
+        return data;
+    }
+    async GetData(data) {
+        let result = await this.config.selectAll(data);
+        return result;
+    }
+
 }
 
 
