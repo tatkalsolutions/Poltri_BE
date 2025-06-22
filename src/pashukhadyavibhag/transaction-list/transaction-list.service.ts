@@ -498,72 +498,72 @@ export class TransactionListService {
     let queryArray = new Array();
 
 
-    switch (data.TRNACCTMATH.COMPANY_ID) {
-      case '104':
-        Htable = 'TRNCFEEDMATH '
-        GRNtable = 'TRNPRCHIGRN '
-        Stable = 'TRNACCTMATSTATUS'
-        TRNBIPRODMATPOSTtable = 'TRNCFEEDMATPOST'
-        Ptable = 'TRNMATPOST'
-        MSTMATVALRATETable = 'MSTMATVALRATE'
+    // switch (data.TRNACCTMATH.COMPANY_ID) {
+    //   case '104':
+    //     Htable = 'TRNCFEEDMATH '
+    //     GRNtable = 'TRNPRCHIGRN '
+    //     Stable = 'TRNACCTMATSTATUS'
+    //     TRNBIPRODMATPOSTtable = 'TRNCFEEDMATPOST'
+    //     Ptable = 'TRNMATPOST'
+    //     MSTMATVALRATETable = 'MSTMATVALRATE'
 
 
-        break;
-      case '105':
-        Htable = 'TRNPUMPMATH '
-        GRNtable = 'TRNPRCHIGRN '
-        Stable = 'TRNACCTMATSTATUS'
-        TRNBIPRODMATPOSTtable = 'TRNPUMPMATPOST'
-        Ptable = 'TRNMATPOST'
-        MSTMATVALRATETable = 'MSTMATVALRATE'
+    //     break;
+    //   case '105':
+    //     Htable = 'TRNPUMPMATH '
+    //     GRNtable = 'TRNPRCHIGRN '
+    //     Stable = 'TRNACCTMATSTATUS'
+    //     TRNBIPRODMATPOSTtable = 'TRNPUMPMATPOST'
+    //     Ptable = 'TRNMATPOST'
+    //     MSTMATVALRATETable = 'MSTMATVALRATE'
 
-        break;
+    //     break;
 
-      case '106':
-        Htable = 'TRNCMEDMATH'
-        GRNtable = 'TRNPRCHIGRN '
-        Stable = 'TRNACCTMATSTATUS'
-        TRNBIPRODMATPOSTtable = 'TRNCMEDMATPOST'
-        Ptable = 'TRNMATPOST'
-        MSTMATVALRATETable = 'MSTMATVALRATE'
+    //   case '106':
+    //     Htable = 'TRNCMEDMATH'
+    //     GRNtable = 'TRNPRCHIGRN '
+    //     Stable = 'TRNACCTMATSTATUS'
+    //     TRNBIPRODMATPOSTtable = 'TRNCMEDMATPOST'
+    //     Ptable = 'TRNMATPOST'
+    //     MSTMATVALRATETable = 'MSTMATVALRATE'
 
-        break;
+    //     break;
 
 
-      case '101':
-        Htable = 'TRNACCTMATH'
-        GRNtable = 'TRNPRCHIGRN '
-        Stable = 'TRNACCTMATSTATUS'
-        TRNBIPRODMATPOSTtable = 'TRNBIPRODMATPOST'
-        Ptable = 'TRNMATPOST'
-        MSTMATVALRATETable = 'MSTMATVALRATE'
-        break;
-      case '103':
-        Htable = 'TRNDSTORMATH'
-        GRNtable = 'TRNPRCHIGRN '
-        Stable = 'TRNACCTMATSTATUS'
-        TRNBIPRODMATPOSTtable = 'TRNDSTORMATPOST'
-        Ptable = 'TRNMATPOST'
-        MSTMATVALRATETable = 'MSTMATVALRATE'
-        break;
-      case '107':
-        Htable = 'TRNBIPRODMATH'
-        GRNtable = 'TRNPRCHIGRN '
-        TRNBIPRODMATPOSTtable = 'TRNBIPRODMATPOST'
-        Ptable = 'TRNMATPOST'
-        Stable = 'TRNACCTMATSTATUS'
-        MSTMATVALRATETable = 'MSTMATVALRATE'
-        break;
-    }
+    //   case '101':
+    Htable = 'TRNACCTMATH'
+    GRNtable = 'TRNPRCHIGRN '
+    Stable = 'TRNACCTMATSTATUS'
+    TRNBIPRODMATPOSTtable = 'TRNBIPRODMATPOST'
+    Ptable = 'TRNMATPOST'
+    MSTMATVALRATETable = 'MSTMATVALRATE'
+    //     break;
+    //   case '103':
+    //     Htable = 'TRNDSTORMATH'
+    //     GRNtable = 'TRNPRCHIGRN '
+    //     Stable = 'TRNACCTMATSTATUS'
+    //     TRNBIPRODMATPOSTtable = 'TRNDSTORMATPOST'
+    //     Ptable = 'TRNMATPOST'
+    //     MSTMATVALRATETable = 'MSTMATVALRATE'
+    //     break;
+    //   case '107':
+    //     Htable = 'TRNBIPRODMATH'
+    //     GRNtable = 'TRNPRCHIGRN '
+    //     TRNBIPRODMATPOSTtable = 'TRNBIPRODMATPOST'
+    //     Ptable = 'TRNMATPOST'
+    //     Stable = 'TRNACCTMATSTATUS'
+    //     MSTMATVALRATETable = 'MSTMATVALRATE'
+    //     break;
+    // }
 
     let SR_NO = 0
     if (data.TRNACCTMATH.TRAN_NO != undefined) {
-      await this.config.executeQuery(`delete from ${Htable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
-      await this.config.executeQuery(`delete from ${GRNtable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
-      await this.config.executeQuery(`delete from ${Stable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
-      await this.config.executeQuery(`delete from ${TRNBIPRODMATPOSTtable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
-      await this.config.executeQuery(`delete from ${Ptable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
-      await this.config.executeQuery(`delete from ${MSTMATVALRATETable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${Htable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${GRNtable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${Stable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${TRNBIPRODMATPOSTtable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${Ptable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
+      queryArray.push(`delete from ${MSTMATVALRATETable} where TRAN_NO= ${data.TRNACCTMATH.TRAN_NO} `)
       let sysDate = await this.config.executeQuery(`Get_SYSDATETIME`);
 
 
