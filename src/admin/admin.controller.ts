@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import * as moment from 'moment';
-import { __DATABASE_TYPE, __MSSQL_DATABASE_MAIN, __MSSQL_DATABASE_USER, DATABASE_BACKUP_PATH } from 'src/config/config.config';
+import { __DATABASE_TYPE, __MSSQL_DATABASE_MAIN, __MSSQL_DATABASE_USER, DATABASE_AUTO_BACKUP_PATH, DATABASE_BACKUP_PATH } from 'src/config/config.config';
 
 @Controller('admin')
 export class AdminController {
@@ -70,16 +70,16 @@ export class AdminController {
     return await this.service.updateMenusModuleWise(body);
   }
 
-  @Get("db_BackupPath")
-  async db_BackupPath(isLocal: boolean = false) {
+  // @Get("db_BackupPath")
+  async db_BackupPath(isLocal: boolean = false, DATABASE_AUTO_BACKUP_ENABLE: any = undefined) {
     let obj: any = {}
-    obj["DATABASE_BACKUP_PATH"] = `${DATABASE_BACKUP_PATH}\\`;
+    obj["DATABASE_BACKUP_PATH"] = `${DATABASE_AUTO_BACKUP_ENABLE == true ? DATABASE_AUTO_BACKUP_PATH : DATABASE_BACKUP_PATH}\\`;
     if (isLocal) {
       if (__DATABASE_TYPE == "MSSQL") {
         obj["MAIN_DATABASE"] = `${__MSSQL_DATABASE_MAIN}`;
-        obj["MAIN_DATABASE_BACKUP_PATH"] = `${DATABASE_BACKUP_PATH}\\${__MSSQL_DATABASE_MAIN}_${moment().format("YYYYMMDD")}.dmp`;
+        obj["MAIN_DATABASE_BACKUP_PATH"] = `${DATABASE_AUTO_BACKUP_ENABLE == true ? DATABASE_AUTO_BACKUP_PATH : DATABASE_BACKUP_PATH}\\${__MSSQL_DATABASE_MAIN}_${moment().format("YYYYMMDD")}.dmp`;
         obj["USER_DATABASE"] = `${__MSSQL_DATABASE_USER}`;
-        obj["USER_DATABASE_BACKUP_PATH"] = `${DATABASE_BACKUP_PATH}\\${__MSSQL_DATABASE_USER}_${moment().format("YYYYMMDD")}.dmp`;
+        obj["USER_DATABASE_BACKUP_PATH"] = `${DATABASE_AUTO_BACKUP_ENABLE == true ? DATABASE_AUTO_BACKUP_PATH : DATABASE_BACKUP_PATH}\\${__MSSQL_DATABASE_USER}_${moment().format("YYYYMMDD")}.dmp`;
       } else {
 
       }
@@ -87,9 +87,9 @@ export class AdminController {
     return obj;
   }
 
-  @Get("db_Backup")
-  async db_Backup() {
-    let path: any = await this.db_BackupPath(true);
+  @Post("db_Backup")
+  async db_Backup(@Body() body) {
+    let path: any = await this.db_BackupPath(true, body?.DATABASE_AUTO_BACKUP_ENABLE);
     return await this.service.db_Backup(path);
   }
 

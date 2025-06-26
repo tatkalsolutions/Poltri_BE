@@ -5,6 +5,7 @@ import { SQL } from 'src/database/sql.sql';
 import { CommonService } from 'src/common/common.service';
 import * as moment from 'moment';
 import { jwtConstants } from './constants';
+import { DATABASE_AUTO_BACKUP_ENABLE } from 'src/config/config.config';
 
 @Controller('auth')
 export class AuthController {
@@ -65,7 +66,8 @@ export class AuthController {
       MODULES: MENUS.length,
       access_token: await this.jwtService.sign(payload, { secret: jwtConstants.secret, expiresIn: jwtConstants.expiresIn }),
       userInfo: user[0],
-      STATUS_CODE: '0'
+      STATUS_CODE: '0',
+      DATABASE_AUTO_BACKUP_ENABLE: DATABASE_AUTO_BACKUP_ENABLE
     };
   }
 }

@@ -92,14 +92,17 @@ export class MukhyaVibhagService {
         queryArray.push(res)
       }
       if (data.TRNSTOREMATI) {
+        let sr_no_: number = 1;
         for (let item of data.TRNSTOREMATI) {
           item['TRAN_NO'] = data.TRNACCTMATH.TRAN_NO
           // item['REF_TRANNO'] = autoIncremented[0][''],
           item['SYSADD_DATETIME'] = data.TRNACCTMATH.SYSADD_DATETIME;
-          item['SYSCHNG_DATETIME'] = sysDate[0][''],
-            item['tableName'] = Itable
+          item['SYSCHNG_DATETIME'] = sysDate[0][''];
+          item['tableName'] = Itable
+          item['SR_NO'] = sr_no_;
           let res1 = await this.sql.insertData(item)
           queryArray.push(res1)
+          sr_no_++;
 
           item['SR_NO'] = SR_NO;
           item['TRAN_NO'] = data.TRNACCTMATH.TRAN_NO

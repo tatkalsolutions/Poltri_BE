@@ -20,13 +20,16 @@ export const __CLOUD_PATH: string = "../../cloud";
  */
 export const __DATABASE_TYPE: "MYSQL" | "MSSQL" = "MSSQL";
 export const DATABASE_BACKUP_PATH: string = `E:\\Projects\\poultry_farm_house\\DB_Backup`; //------------- dont Include \\ on end ,  Use this path for both main and user databse backup
+export const DATABASE_AUTO_BACKUP_PATH: string = `E:\\Projects\\poultry_farm_house\\DB_Backup\\auto`;
+export const DATABASE_AUTO_BACKUP_ENABLE: boolean = true;
 //--------- For MSSQL
 export const __MSSQL_DB_SERVER: string = 'SAWANT-INFOTECH'; //------- also used for crystal report 
+export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_DEV';//------- also used for crystal report 
+// export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_CLIENT'; //------- also used for crystal report 
 export const __MSSQL_DB_PORT: number = 1433;
 export const __MSSQL_DB_USER: string = "shubham"; //------- also used for crystal report 
 export const __MSSQL_DB_PASSWORD: string = "123456789"; //------- also used for crystal report 
 
-export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM'; //------- also used for crystal report 
 export const __MSSQL_DATABASE_USER: string = 'POULTRYFARMUSERS';
 //--------- For MySQL
 export const __MYSQL_DB_SERVER: string = '';

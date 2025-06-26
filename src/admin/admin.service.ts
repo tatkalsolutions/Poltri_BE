@@ -4,6 +4,9 @@ import * as moment from "moment";
 import { AuthService } from 'src/auth/auth.service';
 import { __MSSQL_DATABASE_MAIN, __MSSQL_DATABASE_USER } from 'src/config/config.config';
 import { SQL } from 'src/database/sql.sql';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as archiver from 'archiver';
 
 @Injectable()
 export class AdminService {
@@ -432,16 +435,79 @@ export class AdminService {
     }
   }
 
-  async db_Backup(path: {
-    DATABASE_BACKUP_PATH: string,
-    MAIN_DATABASE: string,
-    MAIN_DATABASE_BACKUP_PATH: string,
-    USER_DATABASE: string,
-    USER_DATABASE_BACKUP_PATH: string
+  // async db_Backup(path: {
+  //   DATABASE_BACKUP_PATH: string,
+  //   MAIN_DATABASE: string,
+  //   MAIN_DATABASE_BACKUP_PATH: string,
+  //   USER_DATABASE: string,
+  //   USER_DATABASE_BACKUP_PATH: string
+  // }) {
+  //   await this.config.executeQuery(`exec sp_backupDb @dbname=N'${__MSSQL_DATABASE_MAIN}',@filepath=N'${path.MAIN_DATABASE_BACKUP_PATH}'`);
+  //   await this.config.executeQuery(`exec sp_backupDb @dbname=N'${__MSSQL_DATABASE_USER}',@filepath=N'${path.USER_DATABASE_BACKUP_PATH}'`);
+  //   return { status: true };
+  // }
+
+  async db_Backup(pathInfo: {
+    DATABASE_BACKUP_PATH: string; // Optional base path
+    MAIN_DATABASE: string;
+    MAIN_DATABASE_BACKUP_PATH: string;
+    USER_DATABASE: string;
+    USER_DATABASE_BACKUP_PATH: string;
   }) {
-    await this.config.executeQuery(`exec sp_backupDb @dbname=N'${__MSSQL_DATABASE_MAIN}',@filepath=N'${path.MAIN_DATABASE_BACKUP_PATH}'`);
-    await this.config.executeQuery(`exec sp_backupDb @dbname=N'${__MSSQL_DATABASE_USER}',@filepath=N'${path.USER_DATABASE_BACKUP_PATH}'`);
-    return { status: true };
+    // Step 1: Perform both database backups
+    await this.config.executeQuery(`exec sp_backupDb @dbname=N'${__MSSQL_DATABASE_MAIN}',@filepath=N'${pathInfo.MAIN_DATABASE_BACKUP_PATH}'`);
+    await this.config.executeQuery(`exec sp_backupDb @dbname=N'${__MSSQL_DATABASE_USER}',@filepath=N'${pathInfo.USER_DATABASE_BACKUP_PATH}'`);
+
+    // Step 2: Define final ZIP file path
+    const backupDir = path.dirname(pathInfo.MAIN_DATABASE_BACKUP_PATH);
+    const zipFileName = `PMS_Backup_${moment().format("YYYYMMDDHHmmss")}.zip`;
+    const zipFilePath = path.join(backupDir, zipFileName);
+
+    // Step 3: Zip both files into one archive
+    await this.zipMultipleFiles(
+      [pathInfo.MAIN_DATABASE_BACKUP_PATH, pathInfo.USER_DATABASE_BACKUP_PATH],
+      zipFilePath
+    );
+
+    // Step 4: Delete original dump files
+    this.safeDelete(pathInfo.MAIN_DATABASE_BACKUP_PATH);
+    this.safeDelete(pathInfo.USER_DATABASE_BACKUP_PATH);
+
+    return {
+      status: true,
+      zipPath: zipFilePath,
+      fileName: zipFileName,
+      message: 'Backup created.'
+    };
+  }
+  //  make zip file from files or file
+  private async zipMultipleFiles(files: string[], outputZipPath: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const output = fs.createWriteStream(outputZipPath);
+      const archive = archiver('zip', { zlib: { level: 9 } });
+
+      output.on('close', () => resolve());
+      archive.on('error', err => reject(err));
+      archive.pipe(output);
+
+      for (const file of files) {
+        if (fs.existsSync(file)) {
+          archive.file(file, { name: path.basename(file) });
+        }
+      }
+
+      archive.finalize();
+    });
+  }
+
+  private safeDelete(filePath: string) {
+    try {
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    } catch (err) {
+      console.error(`Failed to delete file: ${filePath}`, err);
+    }
   }
 
   async checkUSER_ID(body: any) {
