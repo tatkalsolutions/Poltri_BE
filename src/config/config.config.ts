@@ -21,7 +21,7 @@ export const __CLOUD_PATH: string = "../../cloud";
 export const __DATABASE_TYPE: "MYSQL" | "MSSQL" = "MSSQL";
 export const DATABASE_BACKUP_PATH: string = `E:\\Projects\\poultry_farm_house\\DB_Backup`; //------------- dont Include \\ on end ,  Use this path for both main and user databse backup
 export const DATABASE_AUTO_BACKUP_PATH: string = `E:\\Projects\\poultry_farm_house\\DB_Backup\\auto`;
-export const DATABASE_AUTO_BACKUP_ENABLE: boolean = true;
+export const DATABASE_AUTO_BACKUP_ENABLE: boolean = false;
 //--------- For MSSQL
 export const __MSSQL_DB_SERVER: string = 'SAWANT-INFOTECH'; //------- also used for crystal report 
 export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_DEV';//------- also used for crystal report 
