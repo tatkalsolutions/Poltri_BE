@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { spawn } from 'child_process';
 import * as path from 'path';
 import { __MSSQL_DB_USER, __MSSQL_DB_PASSWORD, __MSSQL_DB_SERVER, __MSSQL_DATABASE_MAIN } from 'src/config/config.config';
+import * as cron from 'node-cron';
+import * as fs from 'fs';
 
 
 @Injectable()
@@ -101,4 +103,61 @@ export class ReportService {
     this.reportAssetsPath = path.resolve(__dirname, '../assets/report/');
     return await path.resolve(this.reportAssetsPath + "/output/", fileName);
   }
+
+  ///--------------------- cleanup service ---------- auto delete files 
+  private outputPath = path.resolve(__dirname, '../assets/report/output');
+  private logFile = path.resolve(this.outputPath, 'cleanup-log.txt');
+
+  onModuleInit() {
+    this.scheduleCleanupJob();
+  }
+
+  private scheduleCleanupJob() {
+    // Schedule at 12:00 AM daily
+    cron.schedule('0 0 * * *', () => {
+      // NEW — Every 1 minute
+      // cron.schedule('* * * * *', () => {
+      console.log("************************** Auto Cleanup Report Output Start ***************************")
+      this.deleteFilesAndLog();
+    });
+  }
+
+  private deleteFilesAndLog() {
+    const extensionsToDelete = ['.pdf', '.xls', '.xlsdata'];
+    const timestamp = new Date().toISOString();
+    let logEntries: string[] = [];
+
+    fs.readdir(this.outputPath, (err, files) => {
+      if (err) {
+        const errorMsg = `[${timestamp}] ERROR reading directory: ${err.message}\n`;
+        fs.appendFileSync(this.logFile, errorMsg);
+        console.error(errorMsg);
+        return;
+      }
+
+      files.forEach((file) => {
+        const ext = path.extname(file).toLowerCase();
+        if (extensionsToDelete.includes(ext)) {
+          const fullPath = path.join(this.outputPath, file);
+          fs.unlink(fullPath, (err) => {
+            if (err) {
+              const failMsg = `[${timestamp}] FAILED to delete ${file}: ${err.message}\n`;
+              fs.appendFileSync(this.logFile, failMsg);
+              console.error(failMsg);
+            } else {
+              const successMsg = `[${timestamp}] Deleted: ${file}\n`;
+              logEntries.push(successMsg);
+              console.log(successMsg);
+              fs.appendFileSync(this.logFile, successMsg);
+            }
+          });
+        }
+      });
+
+      if (logEntries.length === 0) {
+        fs.appendFileSync(this.logFile, `[${timestamp}] No files matched for deletion.\n`);
+      }
+    });
+  }
+
 }

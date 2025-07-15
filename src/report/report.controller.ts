@@ -28,7 +28,7 @@ export class ReportController {
   //------ to download file 
   @Public()
   @Get('/getReport')
-  async getReport(@Query('fileName') fileName: string, @Res() res: Response) {
+  async getReport(@Query('fileName') fileName: string, @Res() res: Response, @Query('download') download: boolean | string) {
     try {
       const filePath = await this.reportService.getReport(fileName);
       if (!fs.existsSync(filePath)) {
@@ -36,13 +36,15 @@ export class ReportController {
       }
 
       const fileNameWithExtension = `${fileName}`;
-      // set headers to download pdf 
-      // res.setHeader('Content-Type', 'application/octet-stream');// ------- for auto downalod 
-      // res.setHeader('Content-Disposition', `attachment; filename="${fileNameWithExtension}"`);
-
-      // Set headers to display the PDF in the browser
-      res.setHeader('Content-Type', 'application/pdf'); //------ for view in iframe
-      res.setHeader('Content-Disposition', `inline; filename="${fileNameWithExtension}"`);
+      if (download == true || download == 'true') {
+        // set headers to download pdf 
+        res.setHeader('Content-Type', 'application/octet-stream');// ------- for auto downalod 
+        res.setHeader('Content-Disposition', `attachment; filename="${fileNameWithExtension}"`);
+      } else {
+        // Set headers to display the PDF in the browser
+        res.setHeader('Content-Type', 'application/pdf'); //------ for view in iframe
+        res.setHeader('Content-Disposition', `inline; filename="${fileNameWithExtension}"`);
+      }
 
 
       const fileStream = fs.createReadStream(filePath);
