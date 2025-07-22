@@ -30,6 +30,7 @@ export class ReportService {
       parameters: parameterString,
       formulas: formulaString,
       session_id: data.session_id,
+      exportType: data.exportType ?? "pdf" ///-------- default to `pdf`
     };
 
     try {
@@ -55,7 +56,7 @@ export class ReportService {
       `-d "${__MSSQL_DATABASE_MAIN}" ` +
       `${data.parameters} ${data.formulas} ` +
       `-O "${this.reportAssetsPath + '/output/' + outputDocx}" ` +
-      `-E pdf`;
+      `-E ${data.exportType ?? "pdf"}`;
     console.log(crexportCommand);
 
 
