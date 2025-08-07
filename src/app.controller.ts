@@ -21,6 +21,10 @@ export class AppController {
     return this.appService.companyDetails();
   }
 
+  @Post('setDailyEggRate')
+  async setDailyEggRate(@Body() body: any) {
+    return await this.appService.setDailyEggRate(body);
+  }
 }
 
 
