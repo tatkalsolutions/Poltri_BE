@@ -18,6 +18,17 @@ export class MukhyaVibhagService {
     return result;
   }
 
+  async getSmartTableData2(CompUnitID, MenuDocNo, FromDate, ToDate, UserID) {
+    let obj = {
+      name: 'Sel_TransactionsFinance',
+      params: [CompUnitID, MenuDocNo, UserID, FromDate, ToDate,],
+    };
+
+    let result = await this.sql.execSpWithParams(obj, 1);
+
+    return result;
+  }
+
   async insMaterialStockOpeningBalance(data) {
     let queryArray = new Array();
 

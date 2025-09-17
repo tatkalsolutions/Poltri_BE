@@ -39,7 +39,7 @@ import { PurchaseModule } from './purchase/purchase.module';
     PashukhadyautpadanModule,
     SalesModule,
     ReportModule,
-    PurchaseModule
+    PurchaseModule,
   ],
   controllers: [AppController],
   providers: [

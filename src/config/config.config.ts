@@ -25,8 +25,8 @@ export const DATABASE_AUTO_BACKUP_ENABLE: boolean = false;
 //--------- For MSSQL
 export const __MSSQL_DB_SERVER: string = 'SAWANT-INFOTECH'; //------- also used for crystal report 
 // export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_ACC';//------- also used for crystal report 
-// export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_2107';//------- also used for crystal report 
-export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_20250820';//------- also used for crystal report 
+// export const __MSSQL_DATABASE_MAIN: string = 'X_DEL_POULTRYFARM_2107';//------- also used for crystal report 
+export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_20250917';//------- also used for crystal report 
 
 export const __MSSQL_DB_PORT: number = 1433;
 export const __MSSQL_DB_USER: string = "shubham"; //------- also used for crystal report 

@@ -16,6 +16,17 @@ export class MukhyaVibhagController {
     );
   }
 
+  @Post('/Sel_TransactionsFinance2')
+  async getSmartTableData2(@Body() data) {
+    return await this.mukhyaVibhagService.getSmartTableData2(
+      data.CompUnit,
+      data.MenuDocNo,
+      data.StartDate,
+      data.EndDate,
+      data.UserID,
+    );
+  }
+
   @Post('/insMaterialStockOpeningBalance')
   async insMaterialStockOpeningBalance(@Body() data) {
     return await this.mukhyaVibhagService.insMaterialStockOpeningBalance(data);
