@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './interceptor';
 import { MsgSenderModule } from './msg-sender/msg-sender.module';
 import { HttpModule } from '@nestjs/axios';
@@ -21,6 +21,7 @@ import { PashukhadyautpadanModule } from './pashukhadyautpadan/pashukhadyautpada
 import { SalesModule } from './sales/sales.module';
 import { ReportModule } from './report/report.module';
 import { PurchaseModule } from './purchase/purchase.module';
+import { AuthGuard } from './auth/auth.guard';
 
 @Module({
   imports: [
@@ -45,6 +46,10 @@ import { PurchaseModule } from './purchase/purchase.module';
   providers: [
     AppService,
     SQL, { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor, },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
     CommonService
   ],
 })

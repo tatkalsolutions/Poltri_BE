@@ -6,6 +6,7 @@ import { CommonService } from 'src/common/common.service';
 import * as moment from 'moment';
 import { jwtConstants } from './constants';
 import { DATABASE_AUTO_BACKUP_ENABLE } from 'src/config/config.config';
+import { Public } from './Public';
 
 @Controller('auth')
 export class AuthController {
@@ -16,7 +17,7 @@ export class AuthController {
     private commonService: CommonService
   ) {
   }
-  @Post()
+  @Public() @Post()
   async signIn(@Body() data) {
     const user = await this.authService.findOne(data.username);
     let result: boolean = false
