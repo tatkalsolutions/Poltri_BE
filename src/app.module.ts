@@ -22,6 +22,7 @@ import { SalesModule } from './sales/sales.module';
 import { ReportModule } from './report/report.module';
 import { PurchaseModule } from './purchase/purchase.module';
 import { AuthGuard } from './auth/auth.guard';
+import { JvModule } from './jv/jv.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { AuthGuard } from './auth/auth.guard';
     SalesModule,
     ReportModule,
     PurchaseModule,
+    JvModule
   ],
   controllers: [AppController],
   providers: [

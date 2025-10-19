@@ -411,6 +411,16 @@ export class MukhyaVibhagService {
     return result;
   }
 
+  async Sel_ExistingTransactionsFinance(data) {
+    console.log(data);
+    // exec Sel_ExistingTransactionsDairy @bintTranNo=101192020112000135,@intTranSubType=2,@intAmendNo=0
+    let obj = {
+      name: 'Sel_ExistingTransactionsFinance',
+      params: [data[0].TRAN_NO, data[0].TRAN_SUBTYPE, 0]
+    }
+    let result = await this.sql.execSpWithParams(obj, 1);
+    return result;
+  }
   async mukhyaVibhagTwoObj_Insert(
 
     dsHeader: any,

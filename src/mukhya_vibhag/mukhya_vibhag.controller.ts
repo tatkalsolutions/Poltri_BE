@@ -72,4 +72,8 @@ export class MukhyaVibhagController {
     );
   }
 
+  @Post('/Sel_ExistingTransactionsFinance')
+  async Sel_ExistingTransactionsFinance(@Body() data) {
+    return await this.mukhyaVibhagService.Sel_ExistingTransactionsFinance(data);
+  }
 }
