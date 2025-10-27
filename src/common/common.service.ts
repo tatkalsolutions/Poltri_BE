@@ -170,7 +170,7 @@ export class CommonService {
             params: [data.Code, data.HelpColumnFilter]
 
         }
-        return await this.sql.execSpWithParams(object);
+        return await this.sql.execSpWithParams(object, data.multiflag);
     }
     async Get_TableFieldswithClause(data) {
         let object = {
@@ -936,6 +936,14 @@ export class CommonService {
         return result;
     }
 
+    async getCompanyInfo() {
+        let data2 = {
+            TableName: `'CNFCOMPANY'`,
+            TableColName: `'*'`,
+            Whereclause: `'COMPANY_ID = 101' `,
+        };
+        return await this.Get_TableFieldswithClause(data2);
+    }
 }
 
 

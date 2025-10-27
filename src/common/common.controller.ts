@@ -9,6 +9,7 @@ import {
 import { join } from 'path';
 import { Response } from 'express';
 import { SQL } from 'src/database/sql.sql';
+import { Public } from 'src/auth/Public';
 
 @Controller('common')
 export class CommonController {
@@ -230,6 +231,12 @@ export class CommonController {
   @Post('/GetData')
   async GetData(@Body() data) {
     return this.commonService.GetData(data);
+  }
+
+  @Public()
+  @Get("companyInfo")
+  async getCompanyInfo() {
+    return this.commonService.getCompanyInfo();
   }
 }
 
