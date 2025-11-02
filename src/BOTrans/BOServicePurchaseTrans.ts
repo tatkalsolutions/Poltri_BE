@@ -9,12 +9,12 @@ export class ServicePurchaseTrans {
 
         let queryArray = new Array();
 
-        let HeaderTableName = '';
-        let MaterialPostTable = '';
-        let AccountPostingTable = '';
-        let MaterialStockTable = '';
-        let MatrixPostingTable = '';
-        let GSTR1PostingTable = '';
+        // let HeaderTableName = '';
+        // let MaterialPostTable = '';
+        // let AccountPostingTable = '';
+        // let MaterialStockTable = '';
+        // let MatrixPostingTable = '';
+        // let GSTR1PostingTable = '';
         //Generate Tran No
 
         // dsHeader.STATUS_CODE = 0;
@@ -221,6 +221,7 @@ export class ServicePurchaseTrans {
                 item.DR_CR = 'D';
             } else {
                 item.DR_CR = 'C';
+                item.TRAN_AMOUNT = Math.abs(item.TRAN_AMOUNT);
             }
             item['TRAN_NO'] = dsHeader.TRAN_NO;
             item['TRAN_DATE'] = dsHeader.TRAN_DATE;
