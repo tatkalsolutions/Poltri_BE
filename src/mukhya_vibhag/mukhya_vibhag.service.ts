@@ -248,7 +248,7 @@ export class MukhyaVibhagService {
       );
 
       dsHeader['TRAN_NO'] = TRAN_NO;
-      dsHeader['REFCOMPUNIT_ID'] = dsHeader.REFUNIT_ID;
+      dsHeader['REFCOMPUNIT_ID'] = dsHeader?.REFUNIT_ID ?? dsHeader?.REFCOMPUNIT_ID ?? '101';
       dsHeader['REFCOMPUNIT_TRANNO'] = dsHeader.REFUNIT_TRANNO;
       dsHeader['SYSADD_DATETIME'] = ex_SYSADD_DATETIME;
       dsHeader['SYSADD_LOGIN'] = ex_SYSADD_LOGIN;
@@ -317,7 +317,7 @@ export class MukhyaVibhagService {
 
       dsHeader['TRAN_NO'] = TRANNO[0][''];
       dsHeader['REFCOMPUNIT_TRANNO'] = RefTranNo;
-      dsHeader['REFCOMPUNIT_ID'] = dsHeader?.REFCOMPUNIT_ID == undefined ? 0 : dsRefHeader?.COMPANY_ID;
+      dsHeader['REFCOMPUNIT_ID'] = dsHeader?.REFUNIT_ID ?? dsHeader?.REFCOMPUNIT_ID ?? '101';
       // dsHeader['REFCOMPUNIT_ID'] = 0;
       dsHeader['SYSADD_DATETIME'] = sysDate[0][''];
       dsHeader['SYSADD_LOGIN'] = dsHeader.SYSADD_LOGIN;
