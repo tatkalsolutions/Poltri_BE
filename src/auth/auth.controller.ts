@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { jwtConstants } from './constants';
 import { DATABASE_AUTO_BACKUP_ENABLE } from 'src/config/config.config';
 import { Public } from './Public';
+import { v4 as uuidv4 } from 'uuid';
 
 @Controller('auth')
 export class AuthController {
@@ -68,7 +69,8 @@ export class AuthController {
       access_token: await this.jwtService.sign(payload, { secret: jwtConstants.secret, expiresIn: jwtConstants.expiresIn }),
       userInfo: user[0],
       STATUS_CODE: '0',
-      DATABASE_AUTO_BACKUP_ENABLE: DATABASE_AUTO_BACKUP_ENABLE
+      DATABASE_AUTO_BACKUP_ENABLE: DATABASE_AUTO_BACKUP_ENABLE,
+      sessionTokenKey: uuidv4()
     };
   }
 }

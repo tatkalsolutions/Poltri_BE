@@ -4,7 +4,24 @@ import * as path from 'path';
 import { __MSSQL_DB_USER, __MSSQL_DB_PASSWORD, __MSSQL_DB_SERVER, __MSSQL_DATABASE_MAIN } from 'src/config/config.config';
 import * as cron from 'node-cron';
 import * as fs from 'fs';
+import moment from 'moment';
 
+/*  exportType : mentioned in FE (print page): 
+enum ReportExportType {
+  RTF = "RTF",
+  TXT = "TXT",
+  TAB = "TAB",
+  CSV = "CSV",
+  PDF = "PDF",
+  RPT = "RPT",
+  DOC = "DOC",
+  XLS = "XLS",
+  XLSDATA = "XLSDATA",
+  ERTF = "ERTF",
+  XML = "XML",
+  HTM = "HTM",
+}
+  */
 
 @Injectable()
 export class ReportService {
@@ -47,8 +64,8 @@ export class ReportService {
   //------------ Create Pdf
   async processRequest(data: any): Promise<any> {
     this.reportAssetsPath = path.resolve(__dirname, '../assets/report/');
-    const sessionCode = data.session_id;
-    const outputDocx = `${sessionCode}.pdf`;
+    const sessionCode = data?.session_id ?? moment().format("YYYYMMDDHHmmss");
+    const outputDocx = `${sessionCode}.${data.exportType}`;
     const crexportCommand = `-F "${this.reportAssetsPath + '/rpt/' + data.fileName}" ` +
       `-U ${__MSSQL_DB_USER} ` +
       `-P ${__MSSQL_DB_PASSWORD || '""'} ` +
@@ -110,6 +127,7 @@ export class ReportService {
   private logFile = path.resolve(this.outputPath, 'cleanup-log.txt');
 
   onModuleInit() {
+    this.deleteFilesAndLog(); ///--------- delete files when backend start or restart 
     this.scheduleCleanupJob();
   }
 
@@ -124,7 +142,7 @@ export class ReportService {
   }
 
   private deleteFilesAndLog() {
-    const extensionsToDelete = ['.pdf', '.xls', '.xlsdata'];
+    const extensionsToDelete = ['.pdf', '.xls', '.xlsdata', '.doc', '.csv'];
     const timestamp = new Date().toISOString();
     let logEntries: string[] = [];
 
@@ -146,7 +164,7 @@ export class ReportService {
               fs.appendFileSync(this.logFile, failMsg);
               console.error(failMsg);
             } else {
-              const successMsg = `[${timestamp}] Deleted: ${file}\n`;
+              const successMsg = `[${timestamp}] Deleted: ${file} --- (${fullPath})\n`;
               logEntries.push(successMsg);
               console.log(successMsg);
               fs.appendFileSync(this.logFile, successMsg);
