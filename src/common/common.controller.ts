@@ -238,5 +238,7 @@ export class CommonController {
   async getCompanyInfo() {
     return this.commonService.getCompanyInfo();
   }
+
+
 }
 

@@ -32,7 +32,35 @@ export class ReportController {
     try {
       const filePath = await this.reportService.getReport(fileName);
       if (!fs.existsSync(filePath)) {
-        throw new NotFoundException(`File ${fileName} does not exist`);
+        // throw new NotFoundException(`File ${fileName} does not exist`);
+        // Send HTML response when file not found
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        return res.status(404).send(`
+        <!doctype html>
+        <html lang="mr">
+        <head>
+          <meta charset="utf-8">
+          <title>अहवाल त्रुटी (Report errors)</title>
+          <style>
+            body { font-family: "Noto Sans Devanagari", sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; background:#f6f7fb; }
+            .card { background:#fff; padding:24px 32px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.1); text-align:center; }
+            .icon { font-size:48px; color:#ef4444; margin-bottom:10px; }
+            h1 { font-size:20px; margin:10px 0; color:#111827; }
+            p { color:#6b7280; margin:0; }
+          </style>
+        </head>
+        <body>
+          <div class="card">
+            <div class="icon">⚠️</div>
+            <h1>अहवाल तयार करण्यात अयशस्वी</h1>
+            <h1>Failed to generate report</h1>
+            <p>कृपया पुन्हा प्रयत्न करा.</p>
+            <p>Please try again.</p>
+          </div>
+        </body>
+        </html>
+      `);
+
       }
 
       const fileNameWithExtension = `${fileName}`;
