@@ -240,5 +240,10 @@ export class CommonController {
   }
 
 
+  @Post('rpt_KacchaMalStockRegister')
+  async rptKacchaMalStockRegister(@Body() data: { START_DATE: string, TO_DATE: string }) {
+    return await this.commonService.rptKacchaMalStockRegister(data);
+  }
+
 }
 
