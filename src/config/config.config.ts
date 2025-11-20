@@ -24,15 +24,13 @@ export const DATABASE_AUTO_BACKUP_PATH: string = `E:\\Projects\\poultry_farm_hou
 export const DATABASE_AUTO_BACKUP_ENABLE: boolean = false;
 //--------- For MSSQL
 export const __MSSQL_DB_SERVER: string = 'SAWANT-INFOTECH'; //------- also used for crystal report 
-export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_CONVERSION';//------- also used for crystal report 
-// export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_20251115';//------- also used for crystal report 
-// export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_DEV';//------- also used for crystal report 
-
 export const __MSSQL_DB_PORT: number = 1433;
 export const __MSSQL_DB_USER: string = "shubham"; //------- also used for crystal report 
 export const __MSSQL_DB_PASSWORD: string = "123456789"; //------- also used for crystal report 
+export const __MSSQL_DATABASE_MAIN: string = 'PMS1001';//------- also used for crystal report 
+// export const __MSSQL_DATABASE_MAIN: string = 'POULTRYFARM_DEV';//------- also used for crystal report 
+export const __MSSQL_DATABASE_USER: string = 'PMSUSERS';
 
-export const __MSSQL_DATABASE_USER: string = 'POULTRYFARMUSERS';
 //--------- For MySQL
 export const __MYSQL_DB_SERVER: string = '';
 export const __MYSQL_DB_PORT: number = 3306;
