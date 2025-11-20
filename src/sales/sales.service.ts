@@ -29,7 +29,7 @@ export class SalesService {
 
 
     //----------* Take Format Doc Number
-    let FormatDocNumber = await this.config.executeQuery(` select dbo.FormatDocNo(${TranNo})`);
+    // let FormatDocNumber = await this.config.executeQuery(` select dbo.FormatDocNo(${TranNo})`);
     //delete table data
     //-- Gate Pass Header Posting
     dsHeader['TRAN_NO'] = TranNo;
@@ -57,8 +57,10 @@ export class SalesService {
           MatrixAccountPostingArray[ele].TRAN_AMT = Number(MatrixAccountPostingArray[ele].TRAN_AMT) + Number(item.AMOUNT);
         } else {
           let obj = {
-            GL_ACNO: item.GL_ACNO,
-            SUB_GLACNO: item.SUB_GLACNO,
+            // GL_ACNO: item.GL_ACNO,
+            // SUB_GLACNO: item.SUB_GLACNO,
+            GL_ACNO: item.SALE_GLACNO,
+            SUB_GLACNO: item.SALE_SUB_GLACNO,
             TRAN_AMT: item.AMOUNT
           }
           MatrixAccountPostingArray.push(obj);
