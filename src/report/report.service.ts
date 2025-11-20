@@ -64,7 +64,7 @@ export class ReportService {
   //------------ Create Pdf
   async processRequest(data: any): Promise<any> {
     this.reportAssetsPath = path.resolve(__dirname, '../assets/report/');
-    const sessionCode = data?.session_id ?? moment().format("YYYYMMDDHHmmss");
+    const sessionCode = `${data?.session_id ?? moment().format("YYYYMMDDHHmmss")}`.replace(/-/g, '');;
     const outputDocx = `${sessionCode}.${data.exportType}`;
     const crexportCommand = `-F "${this.reportAssetsPath + '/rpt/' + data.fileName}" ` +
       `-U ${__MSSQL_DB_USER} ` +
