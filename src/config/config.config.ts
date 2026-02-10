@@ -1,5 +1,5 @@
 //-------------- BE Config 
-export const __BE_PORT: number = 2014;
+export const __BE_PORT: number = 2015;
 export const __BE_OPEN_TO: string = '0.0.0.0';
 
 //------------ SMTP Config 
