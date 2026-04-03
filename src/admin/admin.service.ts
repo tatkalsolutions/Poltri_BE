@@ -435,18 +435,6 @@ export class AdminService {
     }
   }
 
-  // async db_Backup(path: {
-  //   DATABASE_BACKUP_PATH: string,
-  //   MAIN_DATABASE: string,
-  //   MAIN_DATABASE_BACKUP_PATH: string,
-  //   USER_DATABASE: string,
-  //   USER_DATABASE_BACKUP_PATH: string
-  // }) {
-  //   await this.config.executeQuery(`exec sp_backupDb @dbname=N'${__MSSQL_DATABASE_MAIN}',@filepath=N'${path.MAIN_DATABASE_BACKUP_PATH}'`);
-  //   await this.config.executeQuery(`exec sp_backupDb @dbname=N'${__MSSQL_DATABASE_USER}',@filepath=N'${path.USER_DATABASE_BACKUP_PATH}'`);
-  //   return { status: true };
-  // }
-
   async db_Backup(pathInfo: {
     DATABASE_BACKUP_PATH: string; // Optional base path
     MAIN_DATABASE: string;

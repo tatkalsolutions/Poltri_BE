@@ -23,6 +23,7 @@ import { ReportModule } from './report/report.module';
 import { PurchaseModule } from './purchase/purchase.module';
 import { AuthGuard } from './auth/auth.guard';
 import { JvModule } from './jv/jv.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { JvModule } from './jv/jv.module';
     SalesModule,
     ReportModule,
     PurchaseModule,
-    JvModule
+    JvModule,
+    DashboardModule
   ],
   controllers: [AppController],
   providers: [
