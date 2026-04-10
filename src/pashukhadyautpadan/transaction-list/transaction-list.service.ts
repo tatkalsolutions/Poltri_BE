@@ -203,7 +203,7 @@ export class TransactionListService {
 
     let sysDate = await this.config.executeQuery(`Get_SYSDATETIME`);
     if (data.TRAN_NO == 0) {
-      let a = await this.config.executeQuery(`exec Get_Next_Trans_No @COMPANY_ID='104',@voutype='${data.TRNCFEEDPRODH.VOUCHER_TYPE}',@vouSubType=${data.TRNCFEEDPRODH.TRAN_SUBTYPE},@vouseries='${data.TRNCFEEDPRODH.VOUCHER_SERIES}',@effdate='${data.TRNCFEEDPRODH.TRAN_DATE}',@TABLE_NAME='TRNCFEEDPRODH'`)
+      let a = await this.config.executeQuery(`exec Get_Next_Trans_No @COMPANY_ID='${data.TRNCFEEDPRODH.COMPANY_ID}',@voutype='${data.TRNCFEEDPRODH.VOUCHER_TYPE}',@vouSubType=${data.TRNCFEEDPRODH.TRAN_SUBTYPE},@vouseries='${data.TRNCFEEDPRODH.VOUCHER_SERIES}',@effdate='${data.TRNCFEEDPRODH.TRAN_DATE}',@TABLE_NAME='TRNCFEEDPRODH'`)
       data.TRNCFEEDPRODH['TRAN_NO'] = a[0][''];
       data.TRNCFEEDPRODH['SYSADD_DATETIME'] = sysDate[0][''];
       data.TRNCFEEDPRODH['SYSCHNG_DATETIME'] = sysDate[0][''];
@@ -211,6 +211,10 @@ export class TransactionListService {
       console.log(data);
       let result = await this.config.insertData(data.TRNCFEEDPRODH);
       queryArray.push(result);
+
+      queryArray.push(await this.config.insertData({ ...data.TRNCFEEDPRODH, tableName: "TRNACCTMATH" })); //////////////---------- For stock posting 
+
+
 
       let SR_NO = 0
 
@@ -226,6 +230,10 @@ export class TransactionListService {
           console.log(item);
           let result = await this.config.insertData(item);
           queryArray.push(result);
+
+          ////////------------- stock posting 
+          item["tableName"] = "TRNMATPOST";
+          queryArray.push(await this.config.insertData(item));
         }
       }
       if (data.TRNCFEEDSTOREMATI != undefined) {
@@ -243,9 +251,14 @@ export class TransactionListService {
       }
 
     } else {
-      await this.config.executeQuery(`delete TRNCFEEDPRODH where TRAN_NO = ${data.TRNCFEEDPRODH[0].TRAN_NO}`)
-      await this.config.executeQuery(`delete TRNCFEEDSTOREMATI where TRAN_NO = ${data.TRNCFEEDPRODH[0].TRAN_NO}`)
-      await this.config.executeQuery(`delete TRNCFEEDMATPOST where TRAN_NO = ${data.TRNCFEEDPRODH[0].TRAN_NO}`)
+      data.TRNCFEEDPRODH = [{
+        ...data.TRNCFEEDPRODH
+      }]
+      queryArray.push(`delete TRNCFEEDPRODH where TRAN_NO = ${data.TRNCFEEDPRODH[0].TRAN_NO}`)
+      queryArray.push(`delete TRNACCTMATH where TRAN_NO = ${data.TRNCFEEDPRODH[0].TRAN_NO}`)
+      queryArray.push(`delete TRNCFEEDSTOREMATI where TRAN_NO = ${data.TRNCFEEDPRODH[0].TRAN_NO}`)
+      queryArray.push(`delete TRNCFEEDMATPOST where TRAN_NO = ${data.TRNCFEEDPRODH[0].TRAN_NO}`)
+      queryArray.push(`delete TRNMATPOST where TRAN_NO = ${data.TRNCFEEDPRODH[0].TRAN_NO}`)
       for (let item of data.TRNCFEEDPRODH) {
         item['TRAN_NO'] = data.TRNCFEEDPRODH[0].TRAN_NO;
         item['SYSCHNG_DATETIME'] = sysDate[0][''];
@@ -253,6 +266,8 @@ export class TransactionListService {
         console.log(item);
         let result = await this.config.insertData(item);
         queryArray.push(result);
+
+        queryArray.push(await this.config.insertData({ ...item, tableName: "TRNACCTMATH" })); //////////////---------- For stock posting 
       }
       let SR_NO = 0
       if (data.TRNCFEEDMATPOST != undefined) {
@@ -267,6 +282,11 @@ export class TransactionListService {
           console.log(item);
           let result = await this.config.insertData(item);
           queryArray.push(result);
+
+
+          ////////------------- stock posting 
+          item["tableName"] = "TRNMATPOST";
+          queryArray.push(await this.config.insertData(item));
         }
       }
       if (data.TRNCFEEDSTOREMATI != undefined) {
